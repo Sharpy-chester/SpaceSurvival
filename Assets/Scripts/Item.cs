@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class Item : MonoBehaviour
 {
@@ -13,12 +14,23 @@ public class Item : MonoBehaviour
     public GraphicRaycaster graphicRaycaster;
     public EventSystem eventSystem;
     public Transform parent;
+    public GameItem itemType;
+    Image thisImage;
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemDescription;
+    public GameObject descriptionPanel;
 
     private void Awake()
     {
+        itemName.text = itemType.itemName;
+        itemDescription.text = itemType.description;
+        thisImage = this.GetComponent<Image>();
+        thisImage.sprite = itemType.icon;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        parent.position = parent.parent.position;
         startPos = this.transform.position;
         parentName = this.gameObject.GetComponentInParent<Transform>().name;
+        
     }
 
     private void Update()
@@ -57,6 +69,9 @@ public class Item : MonoBehaviour
         followPointer = false;
         this.transform.position = startPos;
     }
+    public void ShowDescription()
+    {
 
+    }
     
 }
